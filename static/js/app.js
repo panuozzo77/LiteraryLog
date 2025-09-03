@@ -267,6 +267,7 @@ function loadConfig() {
             currentLanguage = config.language || 'en';
             document.getElementById('language').value = currentLanguage;
             displayColumnCheckboxes(config.visible_columns);
+            populateStatusOptions(); // Populate status options after language is set
         })
         .catch(error => console.error('Error loading config:', error));
 }
@@ -275,6 +276,34 @@ function changeLanguage() {
     const newLanguage = document.getElementById('language').value;
     currentLanguage = newLanguage;
     updateLanguageUI();
+}
+
+function populateStatusOptions() {
+    const statusSelect = document.getElementById('status');
+    const currentValue = statusSelect.value; // Preserve current selection
+
+    // Clear existing options
+    statusSelect.innerHTML = '';
+
+    // Add status options with translations
+    const statusOptions = [
+        { value: 'Non Letto', key: 'statusNotRead' },
+        { value: 'Leggendo', key: 'statusReading' },
+        { value: 'Finito', key: 'statusFinished' },
+        { value: 'Abbandonato', key: 'statusAbandoned' }
+    ];
+
+    statusOptions.forEach(option => {
+        const optionElement = document.createElement('option');
+        optionElement.value = option.value;
+        optionElement.textContent = t(option.key);
+        statusSelect.appendChild(optionElement);
+    });
+
+    // Restore previous selection if it exists
+    if (currentValue) {
+        statusSelect.value = currentValue;
+    }
 }
 
 function displayColumnCheckboxes(visibleColumns) {
@@ -341,11 +370,7 @@ function updateLanguageUI() {
     headers[8].textContent = t('tableActions');
 
     // Update status options
-    const statusSelect = document.getElementById('status');
-    statusSelect.options[0].text = t('statusNotRead');
-    statusSelect.options[1].text = t('statusReading');
-    statusSelect.options[2].text = t('statusFinished');
-    statusSelect.options[3].text = t('statusAbandoned');
+    populateStatusOptions();
 
     // Update checkbox label
     const checkboxText = document.querySelector('.checkbox-text');
