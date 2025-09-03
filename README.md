@@ -2,9 +2,10 @@
 
 | Title | Author | Status | Rating | 
 | --- | --- | --- | --- | 
-| Angeli Spezzati | Richard Morgan | Leggendo |  | 
+| La casa dei Silenzi | Donato Carrisi | Finito | 7 | 
+| Angeli Spezzati | Richard Morgan | Leggendo | 5 | 
 | Altered Carbon | Richard Morgan | Finito | 7 | 
-| 108 Rintocchi | Keiko Yoshimura | Finito |  | 
+| 108 Rintocchi | Keiko Yoshimura | Finito | 7 | 
 | L'arte di Essere Felici | Arthur Schopenhauer | Abbandonato |  | 
 | L'Ospite Inquietante | Umberto Galimberti | Abbandonato |  | 
 | Ti Amo anche Oggi | Mapi Danna | Non Letto |  | 
