@@ -8,6 +8,7 @@ type Config struct {
 	ID             uint     `json:"id" gorm:"primaryKey"`
 	ReadmeTitle    string   `json:"readme_title" gorm:"default:'My Book List'"`
 	VisibleColumns []string `json:"visible_columns" gorm:"serializer:json"`
+	Language       string   `json:"language" gorm:"default:'en'"`
 	CreatedAt      time.Time
 	UpdatedAt      time.Time
 }

@@ -243,6 +243,30 @@ tbody tr:last-child td {
     cursor: pointer;
     font-weight: normal;
     color: #2c3e50;
+    vertical-align: middle;
+    line-height: 1.4;
+}
+
+.checkbox-group input[type="checkbox"] {
+    vertical-align: middle;
+    margin: 0;
+}
+
+/* Specific styling for the reread checkbox */
+.checkbox-label {
+    display: flex !important;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.checkbox-label input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.checkbox-text {
+    vertical-align: middle;
+    line-height: 1.4;
 }
 
 /* Responsive design */
