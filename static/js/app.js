@@ -199,7 +199,21 @@ function saveAndCommit() {
     fetch('/api/save', {
         method: 'POST'
     })
-    .then(response => response.json())
-    .then(data => alert(data.message))
-    .catch(error => console.error('Error saving and committing:', error));
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(err => { throw err; });
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.message) {
+            alert(data.message);
+        } else if (data.error) {
+            alert('Error: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error saving and committing:', error);
+        alert('An error occurred while saving and committing');
+    });
 }

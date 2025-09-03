@@ -4,6 +4,7 @@ import (
 	"book_archive/database"
 	"book_archive/models"
 	"book_archive/utils"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -97,13 +98,13 @@ func UpdateConfig(c *gin.Context) {
 func SaveAndCommit(c *gin.Context) {
 	// Generate README
 	if err := utils.GenerateReadme(); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate README"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("Failed to generate README: %v", err)})
 		return
 	}
 
 	// Git operations
 	if err := utils.GitCommitAndPush(); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to commit and push"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("Git operation failed: %v", err)})
 		return
 	}
 

@@ -16,3 +16,8 @@
 10) I have no experience in web-framework. Use the easiest
 11) The readme should have a personalizable title, then down there is a simple grid.  The user can select which columns show or not on the README. Yes, the readme is also in the same repo where we will build this project
 12) the webui must be simple
+
+
+LiteraryLog 
+LiteraryRecord
+ReadHub
