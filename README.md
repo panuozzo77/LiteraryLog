@@ -2,6 +2,8 @@
 
 | Title | Author | Status | Rating | 
 | --- | --- | --- | --- | 
+| Wohpe | Salvatore Sanfilippo | Leggendo |  | 
+| L'Ascesa di Horus | Dan Abnett | Abbandonato |  | 
 | La casa dei Silenzi | Donato Carrisi | Finito | 7 | 
 | Angeli Spezzati | Richard Morgan | Leggendo | 5 | 
 | Altered Carbon | Richard Morgan | Finito | 7 | 
