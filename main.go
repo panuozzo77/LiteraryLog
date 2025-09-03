@@ -26,6 +26,7 @@ func main() {
 
 	// API routes for books
 	r.GET("/api/books", handlers.GetBooks)
+	r.GET("/api/books/:id", handlers.GetBook)
 	r.POST("/api/books", handlers.CreateBook)
 	r.PUT("/api/books/:id", handlers.UpdateBook)
 	r.DELETE("/api/books/:id", handlers.DeleteBook)

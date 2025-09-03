@@ -13,4 +13,4 @@ type Config struct {
 }
 
 // Default visible columns
-var DefaultColumns = []string{"Title", "Author", "Status", "StartDate", "Rating", "Genres", "Pages"}
+var DefaultColumns = []string{"Title", "Author", "Status", "StartDate", "EndDate", "Rating", "Genres", "Pages"}

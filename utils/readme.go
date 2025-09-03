@@ -68,6 +68,11 @@ func getColumnValue(book models.Book, column string) string {
 			return book.StartDate.Format("02/01/2006")
 		}
 		return ""
+	case "EndDate":
+		if book.EndDate != nil {
+			return book.EndDate.Format("02/01/2006")
+		}
+		return ""
 	case "Review":
 		return book.Review
 	case "Rating":

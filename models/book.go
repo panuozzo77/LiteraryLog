@@ -12,6 +12,7 @@ type Book struct {
 	Author    string         `json:"author" gorm:"not null"`
 	Status    string         `json:"status" gorm:"not null"` // Not Letto, Leggendo, Finito, Abbandonato
 	StartDate *time.Time     `json:"start_date"`
+	EndDate   *time.Time     `json:"end_date"`
 	Review    string         `json:"review"`
 	Rating    int            `json:"rating" gorm:"check:rating >= 0 AND rating <= 10"`
 	Reread    bool           `json:"reread"`

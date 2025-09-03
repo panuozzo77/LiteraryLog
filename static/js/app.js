@@ -1,6 +1,6 @@
 // Global variables
 let currentBookId = null;
-const allColumns = ['Title', 'Author', 'Status', 'StartDate', 'Review', 'Rating', 'Reread', 'Genres', 'Pages'];
+const allColumns = ['Title', 'Author', 'Status', 'StartDate', 'EndDate', 'Review', 'Rating', 'Reread', 'Genres', 'Pages'];
 
 // Load data on page load
 document.addEventListener('DOMContentLoaded', function() {
@@ -42,6 +42,7 @@ function displayBooks(books) {
             <td>${book.author}</td>
             <td>${book.status}</td>
             <td>${formatDate(book.start_date)}</td>
+            <td>${formatDate(book.end_date)}</td>
             <td>${book.rating || ''}</td>
             <td>${book.genres}</td>
             <td>${book.pages || ''}</td>
@@ -69,6 +70,7 @@ function saveBook(event) {
         author: document.getElementById('author').value,
         status: document.getElementById('status').value,
         start_date: document.getElementById('startDate').value || null,
+        end_date: document.getElementById('endDate').value || null,
         review: document.getElementById('review').value,
         rating: parseInt(document.getElementById('rating').value) || 0,
         reread: document.getElementById('reread').checked,
@@ -103,6 +105,7 @@ function editBook(id) {
             document.getElementById('author').value = book.author;
             document.getElementById('status').value = book.status;
             document.getElementById('startDate').value = book.start_date ? book.start_date.split('T')[0] : '';
+            document.getElementById('endDate').value = book.end_date ? book.end_date.split('T')[0] : '';
             document.getElementById('review').value = book.review;
             document.getElementById('rating').value = book.rating;
             document.getElementById('reread').checked = book.reread;
@@ -129,6 +132,7 @@ function cancelEdit() {
 function resetForm() {
     currentBookId = null;
     document.getElementById('bookForm').reset();
+    document.getElementById('endDate').value = '';
 }
 
 function loadConfig() {

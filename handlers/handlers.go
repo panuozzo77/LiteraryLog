@@ -21,6 +21,17 @@ func GetBooks(c *gin.Context) {
 	c.JSON(http.StatusOK, books)
 }
 
+// GetBook returns a single book by ID
+func GetBook(c *gin.Context) {
+	id := c.Param("id")
+	var book models.Book
+	if err := database.DB.First(&book, id).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Book not found"})
+		return
+	}
+	c.JSON(http.StatusOK, book)
+}
+
 // CreateBook creates a new book
 func CreateBook(c *gin.Context) {
 	var book models.Book

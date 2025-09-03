@@ -2,4 +2,4 @@
 
 | Title | Author | Status | 
 | --- | --- | --- | 
-| Dune | Frank Herbert | Non Letto | 
+| Dune - Vol 1 | Frank Herbert | Non Letto | 
