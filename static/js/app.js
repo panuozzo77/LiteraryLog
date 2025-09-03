@@ -186,21 +186,85 @@ function formatDate(dateString) {
     return date.toLocaleDateString('it-IT'); // DD/MM/YYYY
 }
 
+function formatDateForInput(dateString) {
+    if (!dateString) return '';
+
+    try {
+        console.log('Formatting date for input:', dateString);
+
+        // If it's already in YYYY-MM-DD format, use it directly
+        if (typeof dateString === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+            console.log('Date already in YYYY-MM-DD format:', dateString);
+            return dateString;
+        }
+
+        // If it contains 'T' (ISO format), split and take date part
+        if (typeof dateString === 'string' && dateString.includes('T')) {
+            const datePart = dateString.split('T')[0];
+            console.log('Extracted date part from ISO format:', datePart);
+            return datePart;
+        }
+
+        // If it contains ' ' (space separated), split and take date part
+        if (typeof dateString === 'string' && dateString.includes(' ')) {
+            const datePart = dateString.split(' ')[0];
+            console.log('Extracted date part from space format:', datePart);
+            return datePart;
+        }
+
+        // Try to parse as Date object
+        const date = new Date(dateString);
+
+        // Check if date is valid
+        if (isNaN(date.getTime())) {
+            console.warn('Invalid date format, cannot parse:', dateString);
+            return '';
+        }
+
+        // Format as YYYY-MM-DD for HTML date input
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+
+        const formatted = `${year}-${month}-${day}`;
+        console.log('Formatted date for input:', formatted);
+        return formatted;
+    } catch (error) {
+        console.error('Error formatting date for input:', error, dateString);
+        return '';
+    }
+}
+
 function saveBook(event) {
     event.preventDefault();
+
+    const startDateValue = document.getElementById('startDate').value;
+    const endDateValue = document.getElementById('endDate').value;
+
+    console.log('Start date input value:', startDateValue);
+    console.log('End date input value:', endDateValue);
+
+    // Format dates properly for Go backend
+    const formatDateForBackend = (dateString) => {
+        if (!dateString) return null;
+        // Append time component for Go's time parsing
+        return dateString + 'T00:00:00Z';
+    };
 
     const bookData = {
         title: document.getElementById('title').value,
         author: document.getElementById('author').value,
         status: document.getElementById('status').value,
-        start_date: document.getElementById('startDate').value || null,
-        end_date: document.getElementById('endDate').value || null,
+        start_date: formatDateForBackend(startDateValue),
+        end_date: formatDateForBackend(endDateValue),
         review: document.getElementById('review').value,
         rating: parseInt(document.getElementById('rating').value) || 0,
         reread: document.getElementById('reread').checked,
         genres: document.getElementById('genres').value,
         pages: parseInt(document.getElementById('pages').value) || 0
     };
+
+    console.log('Book data being sent:', bookData);
 
     const method = currentBookId ? 'PUT' : 'POST';
     const url = currentBookId ? `/api/books/${currentBookId}` : '/api/books';
@@ -212,24 +276,42 @@ function saveBook(event) {
         },
         body: JSON.stringify(bookData)
     })
-    .then(response => response.json())
-    .then(() => {
+    .then(response => {
+        if (!response.ok) {
+            return response.text().then(text => {
+                console.error('Server error response:', text);
+                throw new Error(`HTTP ${response.status}: ${text}`);
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Book saved successfully:', data);
         loadBooks();
         resetForm();
     })
-    .catch(error => console.error('Error saving book:', error));
+    .catch(error => {
+        console.error('Error saving book:', error);
+        alert('Error saving book: ' + error.message);
+    });
 }
 
 function editBook(id) {
     fetch(`/api/books/${id}`)
         .then(response => response.json())
         .then(book => {
+            console.log('Book data received for editing:', book);
+            console.log('Start date from server:', book.start_date);
+            console.log('End date from server:', book.end_date);
+            console.log('Formatted start date:', formatDateForInput(book.start_date));
+            console.log('Formatted end date:', formatDateForInput(book.end_date));
+
             currentBookId = book.id;
             document.getElementById('title').value = book.title;
             document.getElementById('author').value = book.author;
             document.getElementById('status').value = book.status;
-            document.getElementById('startDate').value = book.start_date ? book.start_date.split('T')[0] : '';
-            document.getElementById('endDate').value = book.end_date ? book.end_date.split('T')[0] : '';
+            document.getElementById('startDate').value = formatDateForInput(book.start_date);
+            document.getElementById('endDate').value = formatDateForInput(book.end_date);
             document.getElementById('review').value = book.review;
             document.getElementById('rating').value = book.rating;
             document.getElementById('reread').checked = book.reread;
