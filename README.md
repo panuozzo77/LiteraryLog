@@ -2,7 +2,9 @@
 
 | Title | Author | Status | Rating | 
 | --- | --- | --- | --- | 
-| Wohpe | Salvatore Sanfilippo | Leggendo |  | 
+| How to Avoid a Climate Disaster | Bill Gates | Finito | 8 | 
+| Source Code | Bill Gates | Finito | 7 | 
+| Wohpe | Salvatore Sanfilippo | Finito | 6 | 
 | L'Ascesa di Horus | Dan Abnett | Abbandonato |  | 
 | La casa dei Silenzi | Donato Carrisi | Finito | 7 | 
 | Angeli Spezzati | Richard Morgan | Leggendo | 5 | 
