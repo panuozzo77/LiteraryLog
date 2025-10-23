@@ -2,10 +2,11 @@
 
 | Title | Author | Status | EndDate | Rating | 
 | --- | --- | --- | --- | --- | 
+| Il ritorno delle furie | Richard Morgan | Non Letto |  |  | 
 | How to Avoid a Climate Disaster | Bill Gates | Finito | 10/09/2024 | 8 | 
 | Source Code | Bill Gates | Finito | 16/03/2025 | 7 | 
 | Wohpe | Salvatore Sanfilippo | Finito | 20/10/2025 | 6 | 
-| L'Ascesa di Horus | Dan Abnett | Abbandonato |  |  | 
+| L'Ascesa di Horus | Dan Abnett | Abbandonato |  | 1 | 
 | La casa dei Silenzi | Donato Carrisi | Finito | 03/08/2025 | 7 | 
 | Angeli Spezzati | Richard Morgan | Leggendo |  | 5 | 
 | Altered Carbon | Richard Morgan | Finito | 27/07/2025 | 7 | 

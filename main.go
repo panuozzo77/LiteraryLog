@@ -3,7 +3,9 @@ package main
 import (
 	"book_archive/database"
 	"book_archive/handlers"
+	"book_archive/utils"
 	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,6 +13,14 @@ import (
 func main() {
 	// Initialize database
 	database.InitDB()
+
+	// Check for command-line arguments
+	if len(os.Args) > 1 && os.Args[1] == "export" {
+		if err := utils.ExportBooksToJSON(); err != nil {
+			log.Fatalf("Failed to export books to JSON: %v", err)
+		}
+		return
+	}
 
 	// Create Gin router
 	r := gin.Default()
