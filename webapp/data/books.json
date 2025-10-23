@@ -1,5 +1,20 @@
 [
   {
+    "id": 56,
+    "title": "Il ritorno delle furie",
+    "author": "Richard Morgan",
+    "status": "Non Letto",
+    "start_date": null,
+    "end_date": null,
+    "review": "",
+    "rating": 0,
+    "reread": false,
+    "genres": "Sci-Fi",
+    "pages": 1006,
+    "created_at": "2025-10-23T17:05:25.140913052+02:00",
+    "updated_at": "2025-10-23T17:05:25.140913052+02:00"
+  },
+  {
     "id": 55,
     "title": "How to Avoid a Climate Disaster",
     "author": "Bill Gates",
@@ -52,12 +67,12 @@
     "start_date": "2025-08-24T00:00:00Z",
     "end_date": null,
     "review": "",
-    "rating": 0,
+    "rating": 1,
     "reread": false,
     "genres": "",
-    "pages": 0,
+    "pages": 459,
     "created_at": "2025-09-03T19:18:14.700335561+02:00",
-    "updated_at": "2025-09-03T19:18:14.700335561+02:00"
+    "updated_at": "2025-10-23T17:06:27.239907805+02:00"
   },
   {
     "id": 51,
@@ -70,9 +85,9 @@
     "rating": 7,
     "reread": false,
     "genres": "",
-    "pages": 0,
+    "pages": 484,
     "created_at": "2025-09-03T19:16:12.888581452+02:00",
-    "updated_at": "2025-09-03T19:16:12.888581452+02:00"
+    "updated_at": "2025-10-23T17:05:48.907150197+02:00"
   },
   {
     "id": 50,
@@ -84,10 +99,10 @@
     "review": "",
     "rating": 5,
     "reread": false,
-    "genres": "",
-    "pages": 0,
+    "genres": "Sci-Fi",
+    "pages": 880,
     "created_at": "2025-09-03T19:01:32.99599792+02:00",
-    "updated_at": "2025-09-03T19:16:54.675992705+02:00"
+    "updated_at": "2025-10-23T17:04:21.277715091+02:00"
   },
   {
     "id": 49,

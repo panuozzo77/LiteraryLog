@@ -307,6 +307,21 @@ body {
 .star.empty {
     color: #e5e7eb;
 }
+.star.half {
+    position: relative;
+    display: inline-block;
+    color: #e5e7eb; /* Empty star color */
+}
+
+.star.half::before {
+    content: '★';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    overflow: hidden;
+    color: #fbbf24; /* Filled star color */
+}
 
 .book-meta {
     font-size: 0.85rem;

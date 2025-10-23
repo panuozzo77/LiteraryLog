@@ -182,10 +182,15 @@ async function fetchBookCover(title, author) {
 
 // Generate star rating HTML
 function generateStars(rating) {
+    const totalStars = 5;
     let stars = '';
-    for (let i = 1; i <= 5; i++) {
-        if (i <= rating) {
+    const scaledRating = (rating / 10) * totalStars;
+
+    for (let i = 1; i <= totalStars; i++) {
+        if (i <= scaledRating) {
             stars += '<span class="star">★</span>';
+        } else if (i - 0.5 <= scaledRating) {
+            stars += '<span class="star half">☆</span>';
         } else {
             stars += '<span class="star empty">☆</span>';
         }
