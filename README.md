@@ -4,7 +4,7 @@
 | --- | --- | --- | --- | --- | 
 | Project Hail Mary | Andy Weir | Non Letto |  |  | 
 | Artemis. La prima città sulla Luna | Andy Weir | Non Letto |  |  | 
-| Sopravvissuto - The Martian | Andy Weir | Leggendo | 26/11/2025 | 9 | 
+| Sopravvissuto - The Martian | Andy Weir | Finito | 26/11/2025 | 9 | 
 | Il ritorno delle furie | Richard Morgan | Non Letto |  |  | 
 | How to Avoid a Climate Disaster | Bill Gates | Finito | 10/09/2024 | 8 | 
 | Source Code | Bill Gates | Finito | 16/03/2025 | 7 | 
