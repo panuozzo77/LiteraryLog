@@ -2,6 +2,7 @@
 
 | Title | Author | Status | EndDate | Rating | 
 | --- | --- | --- | --- | --- | 
+| Writing for Developers: Blogs that get read |  Piotr Sarna, Cynthia Dunlop  | Non Letto |  |  | 
 | Project Hail Mary | Andy Weir | Non Letto |  |  | 
 | Artemis. La prima città sulla Luna | Andy Weir | Non Letto |  |  | 
 | Sopravvissuto - The Martian | Andy Weir | Finito | 26/11/2025 | 9 | 
