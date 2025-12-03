@@ -1,308 +1,454 @@
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --secondary-color: #64748b;
+    --secondary-hover: #475569;
+    --success-color: #10b981;
+    --success-hover: #059669;
+    --danger-color: #ef4444;
+    --danger-hover: #dc2626;
+    --background-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --border-radius: 16px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', sans-serif;
     margin: 0;
-    padding: 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 0;
+    background: var(--background-gradient);
     min-height: 100vh;
+    color: var(--text-primary);
     line-height: 1.6;
+}
+
+.main-wrapper {
+    padding: 40px 20px;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    background-color: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-    backdrop-filter: blur(10px);
+}
+
+/* Header */
+.app-header {
+    text-align: center;
+    margin-bottom: 40px;
 }
 
 h1 {
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 2.5em;
-    font-weight: 300;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0;
+    letter-spacing: -0.025em;
+    background: linear-gradient(to right, #4f46e5, #ec4899);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 10px rgba(79, 70, 229, 0.2);
 }
 
 h2 {
-    color: #34495e;
-    margin-bottom: 20px;
-    font-size: 1.4em;
-    font-weight: 500;
-    border-bottom: 2px solid #3498db;
-    padding-bottom: 10px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
 }
 
+/* Sections */
 .section {
-    margin-bottom: 40px;
-    padding: 25px;
-    border: 1px solid #ecf0f1;
-    border-radius: 8px;
-    background: #f8f9fa;
-    transition: all 0.3s ease;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    box-shadow: var(--glass-shadow);
+    margin-bottom: 30px;
+    overflow: hidden;
+    transition: var(--transition);
 }
 
 .section:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transform: translateY(-2px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.15);
+}
+
+.section-header {
+    padding: 20px 30px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Form Styling */
+.book-form {
+    padding: 30px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.full-width {
+    grid-column: 1 / -1;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 label {
-    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
     margin-bottom: 8px;
+}
+
+.section-sub-label {
+    display: block;
+    margin-bottom: 16px;
     font-weight: 600;
-    color: #2c3e50;
-    font-size: 0.95em;
 }
 
-input, select, textarea {
-    width: 100%;
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
     padding: 12px 16px;
-    border: 2px solid #e1e8ed;
-    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.8);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text-primary);
+    transition: var(--transition);
+    width: 100%;
     box-sizing: border-box;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    background-color: #fff;
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
     outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-    transform: translateY(-1px);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    background: #fff;
 }
 
 textarea {
-    height: 120px;
+    min-height: 120px;
     resize: vertical;
-    font-family: inherit;
 }
 
-.checkbox-group {
-    display: flex;
+/* Custom Select */
+.select-wrapper {
+    position: relative;
+}
+
+.select-wrapper::after {
+    content: "▼";
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+select {
+    appearance: none;
+    cursor: pointer;
+}
+
+/* Custom Checkbox */
+.checkbox-container {
+    margin-top: 8px;
+}
+
+.checkbox-label {
+    display: inline-flex;
     align-items: center;
-    margin-bottom: 10px;
+    cursor: pointer;
+    user-select: none;
 }
 
-.checkbox-group input[type="checkbox"] {
-    width: auto;
+.checkbox-label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkbox-custom {
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
     margin-right: 10px;
-    transform: scale(1.2);
+    position: relative;
+    transition: var(--transition);
 }
 
-.checkbox-group label {
-    margin-bottom: 0;
-    font-weight: normal;
+.checkbox-label:hover input~.checkbox-custom {
+    border-color: var(--primary-color);
 }
 
-button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+.checkbox-label input:checked~.checkbox-custom {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.checkbox-custom::after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-label input:checked~.checkbox-custom::after {
+    display: block;
+}
+
+/* Buttons */
+.form-actions {
+    margin-top: 32px;
+    display: flex;
+    gap: 16px;
+}
+
+.btn {
     padding: 12px 24px;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
     cursor: pointer;
-    margin-right: 12px;
-    font-size: 16px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s;
-}
-
-button:hover::before {
-    left: 100%;
-}
-
-button:hover {
+.btn:hover {
     transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-button:active {
+.btn:active {
     transform: translateY(0);
 }
 
-#cancelBtn {
-    background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
 }
 
-#cancelBtn:hover {
-    background: linear-gradient(135deg, #7f8c8d 0%, #6c7b7d 100%);
+.btn-primary:hover {
+    background: var(--primary-hover);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--text-secondary);
+    border: 1px solid #e2e8f0;
+}
+
+.btn-secondary:hover {
+    background: #f8fafc;
+    color: var(--text-primary);
+}
+
+.btn-success {
+    background: var(--success-color);
+    color: white;
+}
+
+.btn-success:hover {
+    background: var(--success-hover);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn-danger {
+    background: var(--danger-color);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: var(--danger-hover);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.btn-large {
+    width: 100%;
+    padding: 16px;
+    font-size: 1.1rem;
+}
+
+/* Table */
+.list-section {
+    padding: 0;
+    /* Remove overflow: hidden to allow sticky header to work relative to viewport if needed, 
+       but here we want it sticky within the table-responsive container usually. 
+       However, user asked for "page scroll", so sticky to top of viewport is best if table is long.
+       But we have .table-responsive which handles overflow-x. 
+       Let's make it sticky within the .table-responsive container for now, or relative to window.
+       Given the structure, sticky within the scrollable container is safest for mobile.
+       But user said "scroll down the page". Let's try to make it sticky relative to the window.
+       To do that, we need to ensure no parent has overflow: hidden/auto that clips it, 
+       EXCEPT the one we want to scroll.
+    */
+}
+
+.table-responsive {
+    overflow-x: auto;
+    /* To make sticky work on window scroll, we can't have overflow here if the table is wider than screen.
+       But we need overflow-x for responsiveness.
+       Compromise: Sticky header works within the .table-responsive container if it has a max-height.
+       OR, if we want it sticky to the WINDOW, we can't easily have overflow-x on a parent.
+       Let's assume the user mostly cares about vertical scrolling.
+       We will apply sticky to th.
+    */
+    max-height: 80vh;
+    /* Make the table itself scrollable vertically */
+    overflow-y: auto;
 }
 
 table {
     width: 100%;
+    border-collapse: separate;
+    /* Required for sticky to work well with borders sometimes, but collapse is usually fine */
     border-collapse: collapse;
-    margin-top: 25px;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-th, td {
-    padding: 15px 12px;
-    text-align: left;
-    border-bottom: 1px solid #e1e8ed;
+    white-space: nowrap;
 }
 
 th {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: #f8fafc;
+    /* Solid background to hide content behind */
+    padding: 16px 24px;
+    text-align: left;
     font-weight: 600;
-    font-size: 0.9em;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid #e2e8f0;
+
+    /* Sticky positioning */
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    /* Shadow to indicate depth */
 }
 
-tbody tr {
-    background-color: white;
-    transition: all 0.3s ease;
+td {
+    padding: 16px 24px;
+    border-bottom: 1px solid #f1f5f9;
+    color: var(--text-primary);
+    font-size: 0.95rem;
 }
 
-tbody tr:hover {
-    background: linear-gradient(135deg, #f8f9ff 0%, #fff5ff 100%);
-    transform: scale(1.01);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-tbody tr:last-child td {
+tr:last-child td {
     border-bottom: none;
 }
 
+tbody tr {
+    transition: var(--transition);
+}
+
+/* Alternating row colors */
+tbody tr:nth-child(even) {
+    background-color: rgba(241, 245, 249, 0.5);
+    /* Light gray/blue */
+}
+
+tbody tr:hover {
+    background: rgba(226, 232, 240, 0.8) !important;
+    /* Ensure hover is visible over alternating color */
+}
+
+/* Settings */
+.settings-section {
+    padding: 30px;
+}
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.columns-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 16px;
+}
+
+.commit-section {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+/* Action Buttons in Table */
 .action-btn {
     padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.875rem;
     margin-right: 8px;
-    font-size: 14px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.edit-btn {
-    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-    color: white;
-}
-
-.edit-btn:hover {
-    background: linear-gradient(135deg, #229954 0%, #27ae60 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
-}
-
-.delete-btn {
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-    color: white;
-}
-
-.delete-btn:hover {
-    background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
-}
-
-.checkbox-group {
-    display: inline-block;
-    margin-right: 20px;
-    margin-bottom: 10px;
-    background: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: 1px solid #e1e8ed;
-    transition: all 0.3s ease;
-}
-
-.checkbox-group:hover {
-    border-color: #3498db;
-    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.1);
-}
-
-.checkbox-group label {
-    display: inline;
-    margin-left: 8px;
-    cursor: pointer;
-    font-weight: normal;
-    color: #2c3e50;
-    vertical-align: middle;
-    line-height: 1.4;
-}
-
-.checkbox-group input[type="checkbox"] {
-    vertical-align: middle;
-    margin: 0;
-}
-
-/* Specific styling for the reread checkbox */
-.checkbox-label {
-    display: flex !important;
-    align-items: center;
-    cursor: pointer;
-    margin-bottom: 0;
-}
-
-.checkbox-label input[type="checkbox"] {
-    margin-right: 10px;
-}
-
-.checkbox-text {
-    vertical-align: middle;
-    line-height: 1.4;
-}
-
-/* Responsive design */
+/* Responsive */
 @media (max-width: 768px) {
-    body {
-        padding: 10px;
+
+    .form-grid,
+    .settings-grid {
+        grid-template-columns: 1fr;
     }
 
-    .container {
-        padding: 20px;
+    .main-wrapper {
+        padding: 20px 10px;
     }
 
     h1 {
-        font-size: 2em;
+        font-size: 2rem;
     }
 
-    .section {
-        padding: 15px;
+    .section-header {
+        padding: 15px 20px;
     }
 
-    table {
-        font-size: 14px;
+    .book-form,
+    .settings-section {
+        padding: 20px;
     }
 
-    th, td {
-        padding: 10px 8px;
-    }
-
-    .action-btn {
-        padding: 6px 12px;
-        font-size: 12px;
-    }
-
-    .checkbox-group {
-        display: block;
-        margin-right: 0;
-        margin-bottom: 8px;
+    th,
+    td {
+        padding: 12px 16px;
     }
 }

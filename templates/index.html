@@ -4,111 +4,152 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Archive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Book Archive</h1>
+    <div class="main-wrapper">
+        <div class="container">
+            <header class="app-header">
+                <h1>Book Archive</h1>
+            </header>
 
-        <!-- Book Form -->
-        <div class="section">
-            <h2>Add/Edit Book</h2>
-            <form id="bookForm">
-                <input type="hidden" id="bookId">
-                <div class="form-group">
-                    <label for="title">Title:</label>
-                    <input type="text" id="title" required>
+            <!-- Book Form -->
+            <div class="section form-section">
+                <div class="section-header">
+                    <h2>Add/Edit Book</h2>
                 </div>
-                <div class="form-group">
-                    <label for="author">Author:</label>
-                    <input type="text" id="author" required>
-                </div>
-                <div class="form-group">
-                    <label for="status">Status:</label>
-                    <select id="status" required>
-                        <!-- Options will be populated by JavaScript -->
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="startDate">Start Date:</label>
-                    <input type="date" id="startDate">
-                </div>
-                <div class="form-group">
-                    <label for="endDate">End Date:</label>
-                    <input type="date" id="endDate">
-                </div>
-                <div class="form-group">
-                    <label for="review">Review:</label>
-                    <textarea id="review"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="rating">Rating (1-10):</label>
-                    <input type="number" id="rating" min="1" max="10">
-                </div>
-                <div class="form-group">
-                    <label for="reread" class="checkbox-label">
-                        <input type="checkbox" id="reread">
-                        <span class="checkbox-text">Would read again</span>
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label for="genres">Genres:</label>
-                    <input type="text" id="genres">
-                </div>
-                <div class="form-group">
-                    <label for="pages">Pages:</label>
-                    <input type="number" id="pages">
-                </div>
-                <button type="submit">Save Book</button>
-                <button type="button" id="cancelBtn">Cancel</button>
-            </form>
-        </div>
+                <form id="bookForm" class="book-form">
+                    <input type="hidden" id="bookId">
+                    
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="title">Title</label>
+                            <input type="text" id="title" required placeholder="Enter book title">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="author">Author</label>
+                            <input type="text" id="author" required placeholder="Author name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <div class="select-wrapper">
+                                <select id="status" required>
+                                    <!-- Options will be populated by JavaScript -->
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="startDate">Start Date</label>
+                            <input type="date" id="startDate">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="endDate">End Date</label>
+                            <input type="date" id="endDate">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="rating">Rating (1-10)</label>
+                            <input type="number" id="rating" min="1" max="10" placeholder="Rate 1-10">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pages">Pages</label>
+                            <input type="number" id="pages" placeholder="Number of pages">
+                        </div>
 
-        <!-- Book List -->
-        <div class="section">
-            <h2>Book List</h2>
-            <table id="bookTable">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Status</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Rating</th>
-                        <th>Genres</th>
-                        <th>Pages</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
+                        <div class="form-group full-width">
+                            <label for="genres">Genres</label>
+                            <input type="text" id="genres" placeholder="Fiction, Sci-Fi, etc.">
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="review">Review</label>
+                            <textarea id="review" placeholder="Write your thoughts..."></textarea>
+                        </div>
+                        
+                        <div class="form-group full-width checkbox-container">
+                            <label for="reread" class="checkbox-label">
+                                <input type="checkbox" id="reread">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Would read again</span>
+                            </label>
+                        </div>
+                    </div>
 
-        <!-- README Settings -->
-        <div class="section">
-            <h2>README Settings</h2>
-            <div class="form-group">
-                <label for="language">Language:</label>
-                <select id="language">
-                    <option value="en">English</option>
-                    <option value="it">Italiano</option>
-                </select>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save Book</button>
+                        <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="readmeTitle">README Title:</label>
-                <input type="text" id="readmeTitle">
-            </div>
-            <div class="form-group">
-                <label>Visible Columns:</label>
-                <div id="columnCheckboxes"></div>
-            </div>
-            <button id="saveSettings">Save Settings</button>
-        </div>
 
-        <!-- Save and Commit -->
-        <div class="section">
-            <button id="saveCommitBtn">Save and Commit to Git</button>
+            <!-- Book List -->
+            <div class="section list-section">
+                <div class="section-header">
+                    <h2>Book List</h2>
+                </div>
+                <div class="table-responsive">
+                    <table id="bookTable">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Status</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Rating</th>
+                                <th>Genres</th>
+                                <th>Pages</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- README Settings -->
+            <div class="section settings-section">
+                <div class="section-header">
+                    <h2>README Settings</h2>
+                </div>
+                <div class="settings-grid">
+                    <div class="form-group">
+                        <label for="language">Language</label>
+                        <div class="select-wrapper">
+                            <select id="language">
+                                <option value="en">English</option>
+                                <option value="it">Italiano</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="readmeTitle">README Title</label>
+                        <input type="text" id="readmeTitle" placeholder="My Reading List">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="section-sub-label">Visible Columns</label>
+                    <div id="columnCheckboxes" class="columns-grid"></div>
+                </div>
+                
+                <div class="form-actions">
+                    <button id="saveSettings" class="btn btn-primary">Save Settings</button>
+                </div>
+            </div>
+
+            <!-- Save and Commit -->
+            <div class="section commit-section">
+                <button id="saveCommitBtn" class="btn btn-success btn-large">Save and Commit to Git</button>
+            </div>
         </div>
     </div>
 

@@ -125,7 +125,7 @@ function t(key) {
 }
 
 // Load data on page load
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     loadBooks();
     loadConfig();
     setupEventListeners();
@@ -276,24 +276,24 @@ function saveBook(event) {
         },
         body: JSON.stringify(bookData)
     })
-    .then(response => {
-        if (!response.ok) {
-            return response.text().then(text => {
-                console.error('Server error response:', text);
-                throw new Error(`HTTP ${response.status}: ${text}`);
-            });
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Book saved successfully:', data);
-        loadBooks();
-        resetForm();
-    })
-    .catch(error => {
-        console.error('Error saving book:', error);
-        alert('Error saving book: ' + error.message);
-    });
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    console.error('Server error response:', text);
+                    throw new Error(`HTTP ${response.status}: ${text}`);
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Book saved successfully:', data);
+            loadBooks();
+            resetForm();
+        })
+        .catch(error => {
+            console.error('Error saving book:', error);
+            alert('Error saving book: ' + error.message);
+        });
 }
 
 function editBook(id) {
@@ -326,8 +326,8 @@ function deleteBook(id) {
         fetch(`/api/books/${id}`, {
             method: 'DELETE'
         })
-        .then(() => loadBooks())
-        .catch(error => console.error('Error deleting book:', error));
+            .then(() => loadBooks())
+            .catch(error => console.error('Error deleting book:', error));
     }
 }
 
@@ -393,8 +393,9 @@ function displayColumnCheckboxes(visibleColumns) {
     container.innerHTML = '';
 
     allColumns.forEach(column => {
-        const div = document.createElement('div');
-        div.className = 'checkbox-group';
+        const label = document.createElement('label');
+        label.className = 'checkbox-label';
+        label.htmlFor = `col_${column}`;
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
@@ -402,13 +403,17 @@ function displayColumnCheckboxes(visibleColumns) {
         checkbox.value = column;
         checkbox.checked = visibleColumns.includes(column);
 
-        const label = document.createElement('label');
-        label.htmlFor = `col_${column}`;
-        label.textContent = column;
+        const customSpan = document.createElement('span');
+        customSpan.className = 'checkbox-custom';
 
-        div.appendChild(checkbox);
-        div.appendChild(label);
-        container.appendChild(div);
+        const textSpan = document.createElement('span');
+        textSpan.className = 'checkbox-text';
+        textSpan.textContent = t('table' + column); // Use translation
+
+        label.appendChild(checkbox);
+        label.appendChild(customSpan);
+        label.appendChild(textSpan);
+        container.appendChild(label);
     });
 }
 
@@ -461,10 +466,13 @@ function updateLanguageUI() {
     }
 
     // Update checkbox labels
-    document.querySelectorAll('.checkbox-group label').forEach(label => {
-        const checkbox = label.previousElementSibling;
-        const columnName = checkbox.value;
-        label.textContent = t('table' + columnName);
+    document.querySelectorAll('.columns-grid .checkbox-label').forEach(label => {
+        const checkbox = label.querySelector('input');
+        const textSpan = label.querySelector('.checkbox-text');
+        if (checkbox && textSpan) {
+            const columnName = checkbox.value;
+            textSpan.textContent = t('table' + columnName);
+        }
     });
 }
 
@@ -490,30 +498,30 @@ function saveConfig() {
         },
         body: JSON.stringify(configData)
     })
-    .then(response => response.json())
-    .then(() => alert(t('settingsSaved')))
-    .catch(error => console.error('Error saving config:', error));
+        .then(response => response.json())
+        .then(() => alert(t('settingsSaved')))
+        .catch(error => console.error('Error saving config:', error));
 }
 
 function saveAndCommit() {
     fetch('/api/save', {
         method: 'POST'
     })
-    .then(response => {
-        if (!response.ok) {
-            return response.json().then(err => { throw err; });
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.message) {
-            alert(t('savedCommitted'));
-        } else if (data.error) {
-            alert('Error: ' + data.error);
-        }
-    })
-    .catch(error => {
-        console.error('Error saving and committing:', error);
-        alert('An error occurred while saving and committing');
-    });
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(err => { throw err; });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.message) {
+                alert(t('savedCommitted'));
+            } else if (data.error) {
+                alert('Error: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error saving and committing:', error);
+            alert('An error occurred while saving and committing');
+        });
 }
