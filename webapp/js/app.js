@@ -3,6 +3,8 @@ let allBooks = [];
 let filteredBooks = [];
 let currentTab = 'bookshelf';
 let sortOrder = 'recent';
+// Cache for book covers
+const coverCache = JSON.parse(localStorage.getItem('bookCovers') || '{}');
 
 // Status translations
 const statusMap = {
@@ -22,7 +24,7 @@ const statusClass = {
 // Load books from JSON
 async function loadBooks() {
     try {
-        var allowCrossDomain = function(req,res,next) {
+        var allowCrossDomain = function (req, res, next) {
             res.header('Access-Control-Allow-Origin', '*');
             res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
             res.header('Access-Control-Allow-Headers', 'Content-Type');
@@ -31,13 +33,15 @@ async function loadBooks() {
         const response = await fetch('data/books.json');
         allBooks = await response.json();
         console.log(`Loaded ${allBooks.length} books`);
-        
+
         // Initialize the display
+        // Initialize the display
+        updateSortButtonLabel();
         filterBooks();
         setupEventListeners();
     } catch (error) {
         console.error('Error loading books:', error);
-        document.getElementById('booksContainer').innerHTML = 
+        document.getElementById('booksContainer').innerHTML =
             '<div class="no-books"><div class="no-books-icon">❌</div><div class="no-books-text">Errore nel caricamento dei libri</div></div>';
     }
 }
@@ -47,7 +51,7 @@ function filterBooks() {
     let filtered = allBooks;
 
     // Filter by tab
-    switch(currentTab) {
+    switch (currentTab) {
         case 'reading':
             filtered = filtered.filter(book => book.status === 'Leggendo');
             break;
@@ -71,7 +75,7 @@ function filterBooks() {
     // Filter by search
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
     if (searchTerm) {
-        filtered = filtered.filter(book => 
+        filtered = filtered.filter(book =>
             book.title.toLowerCase().includes(searchTerm) ||
             book.author.toLowerCase().includes(searchTerm)
         );
@@ -88,7 +92,7 @@ function filterBooks() {
 function sortBooks(books) {
     const sorted = [...books];
 
-    switch(sortOrder) {
+    switch (sortOrder) {
         case 'recent':
             sorted.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
             break;
@@ -130,31 +134,29 @@ async function createBookCard(book) {
     const stars = generateStars(rating);
     const statusLabel = statusMap[book.status] || book.status;
     const statusClass_ = statusClass[book.status] || 'status-not-started';
-    
+
     const coverUrl = await fetchBookCover(book.title, book.author);
 
     let coverElement;
     if (coverUrl) {
         coverElement = `<img src="${coverUrl}" alt="${escapeHtml(book.title)}" class="book-cover-image">`;
     } else {
-        // Generate a color-based cover using the first letter of the title
-        const coverColor = getColorFromTitle(book.title);
-        const firstLetter = book.title.charAt(0).toUpperCase();
-        coverElement = `<div class="book-cover-placeholder" style="background: ${coverColor};">${firstLetter}</div>`;
+        // Use the generic placeholder
+        coverElement = `<div class="book-cover-placeholder"></div>`;
     }
 
     return `
         <div class="book-card">
-            <div class="book-cover">
+            <div class="book-cover-container">
                 ${coverElement}
             </div>
             <div class="book-info">
                 <div class="book-title">${escapeHtml(book.title)}</div>
                 <div class="book-author">${escapeHtml(book.author)}</div>
-                <div class="book-status ${statusClass_}">${statusLabel}</div>
-                <div class="book-rating">${stars}</div>
+                
                 <div class="book-meta">
-                    ${book.pages ? `📄 ${book.pages} pagine` : ''}
+                    <div class="book-status ${statusClass_}">${statusLabel}</div>
+                    <div class="book-rating">${stars}</div>
                 </div>
             </div>
         </div>
@@ -162,18 +164,39 @@ async function createBookCard(book) {
 }
 
 // Fetch book cover from Google Books API
+// Fetch book cover from Google Books API
 async function fetchBookCover(title, author) {
+    const cacheKey = `${title}-${author}`;
+
+    // Check cache first
+    if (coverCache[cacheKey]) {
+        return coverCache[cacheKey];
+    }
+
     try {
         const query = `intitle:${encodeURIComponent(title)}+inauthor:${encodeURIComponent(author)}`;
         const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=1`);
         const data = await response.json();
+
+        let coverUrl = null;
         if (data.items && data.items.length > 0) {
             const book = data.items[0];
-            if (book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail) {
-                return book.volumeInfo.imageLinks.thumbnail;
+            if (book.volumeInfo.imageLinks) {
+                const links = book.volumeInfo.imageLinks;
+                // Try to get the largest available image
+                const bestImage = links.extraLarge || links.large || links.medium || links.thumbnail;
+                if (bestImage) {
+                    // Force HTTPS but keep zoom parameter to ensure image availability
+                    coverUrl = bestImage.replace('http:', 'https:');
+                }
             }
         }
-        return null;
+
+        // Save to cache (even if null, to avoid re-fetching missing covers)
+        coverCache[cacheKey] = coverUrl;
+        localStorage.setItem('bookCovers', JSON.stringify(coverCache));
+
+        return coverUrl;
     } catch (error) {
         console.error('Error fetching book cover:', error);
         return null;
@@ -212,12 +235,12 @@ function getColorFromTitle(title) {
         '#30cfd0',
         '#330867'
     ];
-    
+
     let hash = 0;
     for (let i = 0; i < title.length; i++) {
         hash = title.charCodeAt(i) + ((hash << 5) - hash);
     }
-    
+
     return colors[Math.abs(hash) % colors.length];
 }
 
@@ -240,30 +263,21 @@ function setupEventListeners() {
         });
     });
 
-    // Search input
-    document.getElementById('searchInput').addEventListener('input', () => {
+    // Search input with debounce
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', debounce(() => {
         filterBooks();
-    });
+    }, 300));
 
-    // Search button
-    document.getElementById('searchBtn').addEventListener('click', () => {
-        filterBooks();
-    });
+
 
     // Sort button
     document.getElementById('sortBtn').addEventListener('click', () => {
-        const options = ['recent', 'rating', 'title', 'author'];
+        const options = ['rating', 'title', 'author', 'recent'];
         const currentIndex = options.indexOf(sortOrder);
         sortOrder = options[(currentIndex + 1) % options.length];
-        
-        const sortLabels = {
-            'recent': '⚡ Recenti',
-            'rating': '⭐ Voto',
-            'title': '📖 Titolo',
-            'author': '✍️ Autore'
-        };
-        
-        document.getElementById('sortBtn').textContent = sortLabels[sortOrder];
+
+        updateSortButtonLabel();
         filterBooks();
     });
 
@@ -273,6 +287,30 @@ function setupEventListeners() {
             filterBooks();
         }
     });
+}
+
+// Update sort button label
+function updateSortButtonLabel() {
+    const sortLabels = {
+        'recent': '⚡ Recenti',
+        'rating': '⭐ Voto',
+        'title': '📖 Titolo',
+        'author': '✍️ Autore'
+    };
+    document.getElementById('sortBtn').textContent = sortLabels[sortOrder];
+}
+
+// Debounce function
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
 }
 
 // Initialize the app when the page loads
