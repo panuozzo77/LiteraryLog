@@ -143,6 +143,21 @@ function setupEventListeners() {
 
     // Save and commit
     document.getElementById('saveCommitBtn').addEventListener('click', saveAndCommit);
+
+    // Status change
+    document.getElementById('status').addEventListener('change', handleStatusChange);
+}
+
+function handleStatusChange() {
+    const status = document.getElementById('status').value;
+    const ratingInput = document.getElementById('rating');
+
+    if (status === 'Leggendo' || status === 'Non Letto') {
+        ratingInput.value = 0;
+        ratingInput.disabled = true;
+    } else {
+        ratingInput.disabled = false;
+    }
 }
 
 function loadBooks() {
@@ -316,7 +331,10 @@ function editBook(id) {
             document.getElementById('rating').value = book.rating;
             document.getElementById('reread').checked = book.reread;
             document.getElementById('genres').value = book.genres;
+            document.getElementById('genres').value = book.genres;
             document.getElementById('pages').value = book.pages;
+
+            handleStatusChange();
         })
         .catch(error => console.error('Error loading book:', error));
 }
@@ -338,7 +356,9 @@ function cancelEdit() {
 function resetForm() {
     currentBookId = null;
     document.getElementById('bookForm').reset();
+    document.getElementById('bookForm').reset();
     document.getElementById('endDate').value = '';
+    handleStatusChange();
 }
 
 function loadConfig() {
@@ -386,6 +406,8 @@ function populateStatusOptions() {
     if (currentValue) {
         statusSelect.value = currentValue;
     }
+
+    handleStatusChange();
 }
 
 function displayColumnCheckboxes(visibleColumns) {
