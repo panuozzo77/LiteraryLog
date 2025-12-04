@@ -400,4 +400,22 @@ footer {
     .search-filter {
         max-width: none;
     }
+
+    .book-meta {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .book-status {
+        text-align: center;
+        width: 100%;
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+
+    .book-rating {
+        font-size: 20px;
+        justify-content: center;
+    }
 }

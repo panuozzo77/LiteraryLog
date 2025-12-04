@@ -5,6 +5,7 @@ import (
 	"book_archive/models"
 	"book_archive/utils"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -41,6 +42,9 @@ func CreateBook(c *gin.Context) {
 		return
 	}
 	database.DB.Create(&book)
+	if err := utils.ExportBooksToJSON(); err != nil {
+		log.Printf("Failed to auto-export books: %v", err)
+	}
 	c.JSON(http.StatusCreated, book)
 }
 
@@ -57,6 +61,9 @@ func UpdateBook(c *gin.Context) {
 		return
 	}
 	database.DB.Save(&book)
+	if err := utils.ExportBooksToJSON(); err != nil {
+		log.Printf("Failed to auto-export books: %v", err)
+	}
 	c.JSON(http.StatusOK, book)
 }
 
@@ -69,6 +76,9 @@ func DeleteBook(c *gin.Context) {
 		return
 	}
 	database.DB.Delete(&book)
+	if err := utils.ExportBooksToJSON(); err != nil {
+		log.Printf("Failed to auto-export books: %v", err)
+	}
 	c.JSON(http.StatusOK, gin.H{"message": "Book deleted"})
 }
 
