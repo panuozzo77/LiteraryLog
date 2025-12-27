@@ -2,9 +2,9 @@
 
 | Title | Author | Status | EndDate | Rating | 
 | --- | --- | --- | --- | --- | 
-| Writing for Developers: Blogs that get read |  Piotr Sarna, Cynthia Dunlop  | Leggendo |  | 6 | 
-| Project Hail Mary | Andy Weir | Non Letto |  |  | 
-| Artemis. La prima città sulla Luna | Andy Weir | Non Letto |  |  | 
+| Writing for Developers: Blogs that get read |  Piotr Sarna, Cynthia Dunlop  | Leggendo |  |  | 
+| Project Hail Mary | Andy Weir | Leggendo |  |  | 
+| Artemis. La prima città sulla Luna | Andy Weir | Finito | 26/12/2025 | 10 | 
 | Sopravvissuto - The Martian | Andy Weir | Finito | 26/11/2025 | 9 | 
 | Il ritorno delle furie | Richard Morgan | Non Letto |  |  | 
 | How to Avoid a Climate Disaster | Bill Gates | Finito | 10/09/2024 | 8 | 
