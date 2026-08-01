@@ -2,8 +2,11 @@
 
 | Title | Author | Status | EndDate | Rating | 
 | --- | --- | --- | --- | --- | 
+| Designing Data-Intensive Applications | Martin Kleppmann and Chris Riccomini | Non Letto |  |  | 
+| The Software Engineer's Guidebook | Georgely Orosz | Leggendo |  |  | 
+| A Philosophy of Software Design | John K. Ousterhout | Finito | 17/06/2026 | 7 | 
 | Writing for Developers: Blogs that get read |  Piotr Sarna, Cynthia Dunlop  | Leggendo |  |  | 
-| Project Hail Mary | Andy Weir | Leggendo |  |  | 
+| Project Hail Mary | Andy Weir | Finito | 17/05/2026 | 10 | 
 | Artemis. La prima città sulla Luna | Andy Weir | Finito | 26/12/2025 | 10 | 
 | Sopravvissuto - The Martian | Andy Weir | Finito | 26/11/2025 | 9 | 
 | Il ritorno delle furie | Richard Morgan | Non Letto |  |  | 
