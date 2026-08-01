@@ -135,13 +135,12 @@ async function createBookCard(book) {
     const statusLabel = statusMap[book.status] || book.status;
     const statusClass_ = statusClass[book.status] || 'status-not-started';
 
-    const coverUrl = await fetchBookCover(book.title, book.author);
+    const coverUrl = await fetchBookCover(book);
 
     let coverElement;
     if (coverUrl) {
-        coverElement = `<img src="${coverUrl}" alt="${escapeHtml(book.title)}" class="book-cover-image">`;
+        coverElement = `<img src="${coverUrl}" alt="${escapeHtml(book.title)}" class="book-cover-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'book-cover-placeholder\\'></div>';">`;
     } else {
-        // Use the generic placeholder
         coverElement = `<div class="book-cover-placeholder"></div>`;
     }
 
@@ -163,44 +162,21 @@ async function createBookCard(book) {
     `;
 }
 
-// Fetch book cover from Google Books API
-// Fetch book cover from Google Books API
-async function fetchBookCover(title, author) {
+// Fetch book cover (prefer local cover from webapp/covers/<id>.jpg)
+async function fetchBookCover(book) {
+    if (typeof book === 'object' && book !== null && book.id) {
+        return `covers/${book.id}.jpg`;
+    }
+
+    const title = typeof book === 'string' ? book : (book ? book.title : '');
+    const author = typeof book === 'object' && book ? book.author : '';
     const cacheKey = `${title}-${author}`;
 
-    // Check cache first
     if (coverCache[cacheKey]) {
         return coverCache[cacheKey];
     }
 
-    try {
-        const query = `intitle:${encodeURIComponent(title)}+inauthor:${encodeURIComponent(author)}`;
-        const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=1`);
-        const data = await response.json();
-
-        let coverUrl = null;
-        if (data.items && data.items.length > 0) {
-            const book = data.items[0];
-            if (book.volumeInfo.imageLinks) {
-                const links = book.volumeInfo.imageLinks;
-                // Try to get the largest available image
-                const bestImage = links.extraLarge || links.large || links.medium || links.thumbnail;
-                if (bestImage) {
-                    // Force HTTPS but keep zoom parameter to ensure image availability
-                    coverUrl = bestImage.replace('http:', 'https:');
-                }
-            }
-        }
-
-        // Save to cache (even if null, to avoid re-fetching missing covers)
-        coverCache[cacheKey] = coverUrl;
-        localStorage.setItem('bookCovers', JSON.stringify(coverCache));
-
-        return coverUrl;
-    } catch (error) {
-        console.error('Error fetching book cover:', error);
-        return null;
-    }
+    return null;
 }
 
 // Generate star rating HTML
